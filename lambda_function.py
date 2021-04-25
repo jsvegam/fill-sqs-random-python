@@ -6,26 +6,30 @@ import calendar
 pipeline = boto3.client('codepipeline')
 
 
-
-
 # Create SQS client
 sqs = boto3.client('sqs')
 queue_url = 'https://sqs.us-east-1.amazonaws.com/806175290270/rojo'
 
-equipoNegro = ['Hugo','Martín','Eduardo','Sebastián']
-print(equipoNegro)
-equipoRojo = ['Carlos','Diego','Rubén','Elvis']
 
-equipoNegro = random.sample(equipoNegro, len(equipoNegro))
-print(equipoNegro)
 def lambda_handler(event, context):
     # TODO implement
-    
-    for i in equipoNegro:
 
-        # elemenToDelete = random.choice(equipoNegro)
-        # print(elemenToDelete)
-        
+    existMembers = is_json_key_present(event, 'miembros')
+    existTeam = is_json_key_present(event, 'equipo')
+    membersArray = []
+
+    if existMembers and existTeam:
+        members = event['miembros']
+        equipo = event['equipo']
+    
+    for m in members:
+        membersArray.append(m['nombre'])
+    
+    membersArray = random.sample(membersArray, len(membersArray))
+    print(membersArray)
+
+    for i in membersArray:
+
         # Send message to SQS queue
         response = sqs.send_message(
             QueueUrl=queue_url,
@@ -37,7 +41,7 @@ def lambda_handler(event, context):
                 },
                 'Equipo': {
                     'DataType': 'String',
-                    'StringValue': 'Negro'
+                    'StringValue': equipo
                 },
                 'WeeksOn': {
                     'DataType': 'String',
@@ -53,3 +57,12 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'body': json.dumps('SQS fill').encode('UTF-8')
     }
+
+def is_json_key_present(json, key):
+    try:
+        buf = json[key]
+    except KeyError:
+        return False
+
+    return True
+        
