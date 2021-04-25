@@ -17,6 +17,8 @@ def lambda_handler(event, context):
     existMembers = is_json_key_present(event, 'miembros')
     existTeam = is_json_key_present(event, 'equipo')
     membersArray = []
+    members = ''
+    equipo = ''
 
     if existMembers and existTeam:
         members = event['miembros']
@@ -25,33 +27,33 @@ def lambda_handler(event, context):
         for m in members:
             membersArray.append(m['nombre'])
     
-    membersArray = random.sample(membersArray, len(membersArray))
-    print(membersArray)
+        membersArray = random.sample(membersArray, len(membersArray))
+        print(membersArray)
 
-    for i in membersArray:
+        for i in membersArray:
 
-        # Send message to SQS queue
-        response = sqs.send_message(
-            QueueUrl=queue_url,
-            DelaySeconds=10,
-            MessageAttributes={
-                'Member': {
-                    'DataType': 'String',
-                    'StringValue': i
+            # Send message to SQS queue
+            response = sqs.send_message(
+                QueueUrl=queue_url,
+                DelaySeconds=10,
+                MessageAttributes={
+                    'Member': {
+                        'DataType': 'String',
+                        'StringValue': i
+                    },
+                    'Equipo': {
+                        'DataType': 'String',
+                        'StringValue': equipo
+                    },
+                    'WeeksOn': {
+                        'DataType': 'String',
+                        'StringValue': str(date.today())
+                    }
                 },
-                'Equipo': {
-                    'DataType': 'String',
-                    'StringValue': equipo
-                },
-                'WeeksOn': {
-                    'DataType': 'String',
-                    'StringValue': str(date.today())
-                }
-            },
-            MessageBody=(
-                'Y el turno es para .....: ' + i + ' , fecha: ' + str(date.today())
+                MessageBody=(
+                    'Y el turno es para .....: ' + i + ' , fecha: ' + str(date.today())
+                )
             )
-        )
 
     return {
         'statusCode': 200,
