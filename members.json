@@ -1,0 +1,41 @@
+{
+    "miembros":[
+        {
+            "nombre": "Martin",
+            "equipo": "Negro"
+        },
+        {
+            "nombre": "Eduardo",
+            "equipo": "Negro"
+        },
+        {
+            "nombre": "Hugo",
+            "equipo": "Negro"
+        },
+        {
+            "nombre": "Sebastian",
+            "equipo": "Negro"
+        },
+        {
+            "nombre": "Daniela",
+            "equipo": "Negro"
+        },
+        {
+            "nombre": "Diego",
+            "equipo": "Rojo"
+        },
+        {
+            "nombre": "Carlos",
+            "equipo": "Rojo"
+        },
+        {
+            "nombre": "Ruben",
+            "equipo": "Rojo"
+        },
+        {
+            "nombre": "Elvis",
+            "equipo": "Rojo"
+        }
+    ]
+}
+
