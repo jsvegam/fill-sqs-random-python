@@ -20,7 +20,7 @@ def lambda_handler(event, context):
     members = ''
     equipo = ''
 
-    if existMembers and existTeam:
+    if existMembers == True and existTeam == True:
         members = event['miembros']
         equipo = event['equipo']
     
