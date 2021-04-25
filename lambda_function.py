@@ -22,8 +22,8 @@ def lambda_handler(event, context):
         members = event['miembros']
         equipo = event['equipo']
     
-    for m in members:
-        membersArray.append(m['nombre'])
+        for m in members:
+            membersArray.append(m['nombre'])
     
     membersArray = random.sample(membersArray, len(membersArray))
     print(membersArray)
