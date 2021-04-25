@@ -8,7 +8,7 @@ pipeline = boto3.client('codepipeline')
 
 # Create SQS client
 sqs = boto3.client('sqs')
-queue_url = 'https://sqs.us-east-1.amazonaws.com/806175290270/rojo'
+queue_url = 'https://sqs.us-east-1.amazonaws.com/806175290270/DayliMembers'
 
 
 def lambda_handler(event, context):
